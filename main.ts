@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 import { config } from 'dotenv';
+import { AppService } from './app.service';
 config();
 
 async function bootstrap() {
