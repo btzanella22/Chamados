@@ -3,26 +3,32 @@ import { useEffect, useState } from "react";
 function Chamado() {
   const [chamados, setChamados] = useState([]);
 
-  useEffect(() => {
-    async function buscaChamado() {
-      const url = "http://10.0.0.31:3001/api/ultimos"; // URL
+  async function buscaChamado() {
+    const url = window.location.href.replace('3000', '3001') + "api/ultimos"; // URL
 
-      // Busca pela API
-      try {
-        const response = await fetch(url);
+    // Busca pela API
+    try {
+      const response = await fetch(url);
 
-        if (response.status === 200) {
-          const data = await response.json();
+      // Verifica status da requisição
+      if (response.status === 200) {
+        const data = await response.json();
 
+        // Verifica se chamados alterou
+        if (JSON.stringify(data) !== JSON.stringify(chamados)) {
           setChamados(data);
         }
-      } catch (error) {
-        console.error("Erro de requisição!", error);
       }
+    } catch (error) {
+      console.error("Erro de requisição!", error);
     }
+  }
 
+  useEffect(() => {
     buscaChamado();
-  }, []);
+    const interval = setInterval(buscaChamado, 60000);
+    return () => clearInterval(interval);
+  });
 
   // Interface do chamado
   return (
@@ -50,6 +56,7 @@ function Chamado() {
             {chamado.descricao}
           </p>
           <p>
+            <hr></hr>
             <strong>Observação: </strong>
             {chamado.observacao}
           </p>
