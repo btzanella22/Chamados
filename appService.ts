@@ -10,7 +10,7 @@ export class AppService {
   // Cabeçalho
   private readonly DEFAULT_HEADERS = {
     'Content-Type': 'application/json;charset=UTF-8',
-    'X-Api-Key': 'ZWYzYmMxZDYtOGZiMy00NTc2LWI3MDgtM2I5ZDMxODBlYzQ2OjczMDQ3',
+    'X-Api-Key': 'senha',
   };
 
   // Busca dos endpoints
